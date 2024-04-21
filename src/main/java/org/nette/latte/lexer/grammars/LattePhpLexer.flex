@@ -70,7 +70,7 @@ AS="as"
         return T_PHP_DOUBLE_ARROW;
     }
 
-    "->" {
+    ("?->" | "->") {
         return T_PHP_OBJECT_OPERATOR;
     }
 
