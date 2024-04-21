@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.2
+- Fix "Cannot distinguish StubFileElementTypes" error (performance issue)
+
 ## v1.0.1
 - Add null-safe operator support
 - Automatically attach plugin .jars to latest release

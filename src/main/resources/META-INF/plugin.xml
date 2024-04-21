@@ -40,13 +40,13 @@
 
 		<!-- must have -->
 		<completion.contributor language="Latte" implementationClass="org.nette.latte.completion.LatteCompletionContributor"/>
-		<renamePsiElementProcessor implementation="refactoring.org.nette.latte.LatteRenamePsiElementProcessor"/>
+		<renamePsiElementProcessor implementation="org.nette.latte.refactoring.LatteRenamePsiElementProcessor"/>
 		<lang.smartEnterProcessor implementationClass="org.nette.latte.editor.LatteSmartEnterProcessor" />
 
 		<!-- needed? -->
 		<referencesSearch implementation="org.nette.latte.reference.LatteReferenceSearch"/>
 
-		<stubElementTypeHolder class="org.nette.latte.psi.LatteTypes"/>
+		<stubElementTypeHolder class="org.nette.latte.psi.LatteTypes" externalIdPrefix="latte."/>
 		<stubIndex implementation="org.nette.latte.indexes.extensions.LatteFilterIndex"/>
 		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpClassIndex"/>
 		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpConstantIndex"/>
