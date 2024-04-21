@@ -1,7 +1,7 @@
 <idea-plugin>
-	<id>com.jantvrdik.intellij.latte</id>
-	<name>Latte</name>
-	<vendor>Jan Tvrdík, Matouš Němec</vendor>
+	<id>org.nette.latte</id>
+	<name>Latte Support</name>
+	<vendor>Nette Community</vendor>
 
 	<!-- http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges -->
 	<idea-version since-build="202.8194.7"/>
@@ -12,86 +12,83 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 
-		<fileType name="Latte" implementationClass="com.jantvrdik.intellij.latte.LatteFileType" fieldName="INSTANCE"
+		<fileType name="Latte" implementationClass="org.nette.latte.LatteFileType" fieldName="INSTANCE"
 				  language="Latte" extensions="latte" />
 
-		<projectService serviceImplementation="com.jantvrdik.intellij.latte.settings.LatteSettings"/>
+		<projectService serviceImplementation="org.nette.latte.settings.LatteSettings"/>
 
-		<lang.commenter language="Latte" implementationClass="com.jantvrdik.intellij.latte.commenter.LatteCommenter"/>
-		<lang.parserDefinition language="Latte" implementationClass="com.jantvrdik.intellij.latte.parser.LatteParserDefinition"/>
-		<lang.syntaxHighlighterFactory language="Latte" implementationClass="com.jantvrdik.intellij.latte.syntaxHighlighter.LatteSyntaxHighlighterFactory"/>
-		<lang.foldingBuilder language="Latte" implementationClass="com.jantvrdik.intellij.latte.folding.LatteFoldingBuilder"/>
-		<lang.fileViewProviderFactory language="Latte" implementationClass="com.jantvrdik.intellij.latte.psi.LatteFileViewProviderFactory"/>
-		<lang.formatter language="Latte" implementationClass="com.jantvrdik.intellij.latte.formatter.LatteFormattingModelBuilder"/>
-		<colorSettingsPage implementation="com.jantvrdik.intellij.latte.syntaxHighlighter.LatteColorSettingsPage"/>
-		<lang.quoteHandler language="Latte" implementationClass="com.jantvrdik.intellij.latte.editorActions.LatteQuoteHandler"/>
-		<annotator language="Latte" implementationClass="com.jantvrdik.intellij.latte.annotator.LatteAnnotator"/>
-		<typedHandler implementation="com.jantvrdik.intellij.latte.editorActions.LatteTypedHandler"/>
-		<typedHandler implementation="com.jantvrdik.intellij.latte.editorActions.LatteCompletionAutoPopupHandler"/>
-		<lang.braceMatcher language="Latte" implementationClass="com.jantvrdik.intellij.latte.reference.LatteBraceMatcher"/>
-		<indexPatternBuilder implementation="com.jantvrdik.intellij.latte.psi.LatteIndexPatternBuilder"/>
-		<highlightErrorFilter implementation="com.jantvrdik.intellij.latte.psi.ErrorFilter"/>
-		<lang.psiStructureViewFactory language="Latte" implementationClass="com.jantvrdik.intellij.latte.editor.LatteStructureViewFactory"/>
-		<lang.findUsagesProvider language="Latte" implementationClass="com.jantvrdik.intellij.latte.reference.LatteFindUsagesProvider"/>
-		<psi.referenceContributor implementation="com.jantvrdik.intellij.latte.reference.LatteReferenceContributor"/>
-		<codeStyleSettingsProvider implementation="com.jantvrdik.intellij.latte.codeStyle.LatteCodeStyleSettingsProvider"/>
-		<langCodeStyleSettingsProvider implementation="com.jantvrdik.intellij.latte.codeStyle.LatteLanguageCodeStyleSettingsProvider"/>
-		<lang.documentationProvider language="Latte" implementationClass="com.jantvrdik.intellij.latte.documentation.LatteDocumentationProvider"/>
+		<lang.commenter language="Latte" implementationClass="org.nette.latte.commenter.LatteCommenter"/>
+		<lang.parserDefinition language="Latte" implementationClass="org.nette.latte.parser.LatteParserDefinition"/>
+		<lang.syntaxHighlighterFactory language="Latte" implementationClass="org.nette.latte.syntaxHighlighter.LatteSyntaxHighlighterFactory"/>
+		<lang.foldingBuilder language="Latte" implementationClass="org.nette.latte.folding.LatteFoldingBuilder"/>
+		<lang.fileViewProviderFactory language="Latte" implementationClass="org.nette.latte.psi.LatteFileViewProviderFactory"/>
+		<lang.formatter language="Latte" implementationClass="org.nette.latte.formatter.LatteFormattingModelBuilder"/>
+		<colorSettingsPage implementation="org.nette.latte.syntaxHighlighter.LatteColorSettingsPage"/>
+		<lang.quoteHandler language="Latte" implementationClass="org.nette.latte.editorActions.LatteQuoteHandler"/>
+		<annotator language="Latte" implementationClass="org.nette.latte.annotator.LatteAnnotator"/>
+		<typedHandler implementation="org.nette.latte.editorActions.LatteTypedHandler"/>
+		<typedHandler implementation="org.nette.latte.editorActions.LatteCompletionAutoPopupHandler"/>
+		<lang.braceMatcher language="Latte" implementationClass="org.nette.latte.reference.LatteBraceMatcher"/>
+		<indexPatternBuilder implementation="org.nette.latte.psi.LatteIndexPatternBuilder"/>
+		<highlightErrorFilter implementation="org.nette.latte.psi.ErrorFilter"/>
+		<lang.psiStructureViewFactory language="Latte" implementationClass="org.nette.latte.editor.LatteStructureViewFactory"/>
+		<lang.findUsagesProvider language="Latte" implementationClass="org.nette.latte.reference.LatteFindUsagesProvider"/>
+		<psi.referenceContributor implementation="org.nette.latte.reference.LatteReferenceContributor"/>
+		<codeStyleSettingsProvider implementation="org.nette.latte.codeStyle.LatteCodeStyleSettingsProvider"/>
+		<langCodeStyleSettingsProvider implementation="org.nette.latte.codeStyle.LatteLanguageCodeStyleSettingsProvider"/>
+		<lang.documentationProvider language="Latte" implementationClass="org.nette.latte.documentation.LatteDocumentationProvider"/>
 
 		<!-- must have -->
-		<completion.contributor language="Latte" implementationClass="com.jantvrdik.intellij.latte.completion.LatteCompletionContributor"/>
-		<renamePsiElementProcessor implementation="com.jantvrdik.intellij.latte.refactoring.LatteRenamePsiElementProcessor"/>
-		<lang.smartEnterProcessor implementationClass="com.jantvrdik.intellij.latte.editor.LatteSmartEnterProcessor" />
+		<completion.contributor language="Latte" implementationClass="org.nette.latte.completion.LatteCompletionContributor"/>
+		<renamePsiElementProcessor implementation="refactoring.org.nette.latte.LatteRenamePsiElementProcessor"/>
+		<lang.smartEnterProcessor implementationClass="org.nette.latte.editor.LatteSmartEnterProcessor" />
 
 		<!-- needed? -->
-		<referencesSearch implementation="com.jantvrdik.intellij.latte.reference.LatteReferenceSearch"/>
+		<referencesSearch implementation="org.nette.latte.reference.LatteReferenceSearch"/>
 
-		<stubElementTypeHolder class="com.jantvrdik.intellij.latte.psi.LatteTypes"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LatteFilterIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpClassIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpConstantIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpMethodIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpNamespaceIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpPropertyIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpStaticVariableIndex"/>
-		<stubIndex implementation="com.jantvrdik.intellij.latte.indexes.extensions.LattePhpTypeIndex"/>
-
+		<stubElementTypeHolder class="org.nette.latte.psi.LatteTypes"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LatteFilterIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpClassIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpConstantIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpMethodIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpNamespaceIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpPropertyIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpStaticVariableIndex"/>
+		<stubIndex implementation="org.nette.latte.indexes.extensions.LattePhpTypeIndex"/>
 
 		<defaultLiveTemplates file="/liveTemplates/Latte.xml"/>
-		<liveTemplateContext implementation="com.jantvrdik.intellij.latte.liveTemplates.LatteTemplateContext"/>
-		<liveTemplatePreprocessor implementation="com.jantvrdik.intellij.latte.liveTemplates.LatteTemplatePreprocessor"/>
+		<liveTemplateContext implementation="org.nette.latte.liveTemplates.LatteTemplateContext"/>
+		<liveTemplatePreprocessor implementation="org.nette.latte.liveTemplates.LatteTemplatePreprocessor"/>
 
-		<postStartupActivity implementation="com.jantvrdik.intellij.latte.ui.LattePluginStartupActivity" />
-
-		<projectConfigurable instance="com.jantvrdik.intellij.latte.ui.LatteSettingsForm"
+		<projectConfigurable instance="org.nette.latte.ui.LatteSettingsForm"
 							 displayName="Latte"
 							 parentId="reference.webide.settings.project.settings.php"
 							 id="Latte.LatteSettingsForm"
 							 nonDefaultProject="true"
 		/>
 
-		<projectConfigurable instance="com.jantvrdik.intellij.latte.ui.LatteCustomMacroSettingsForm"
+		<projectConfigurable instance="org.nette.latte.ui.LatteCustomMacroSettingsForm"
 							 displayName="Tags"
 							 parentId="Latte.LatteSettingsForm"
 							 id="Latte.LatteCustomMacroSettingsForm"
 							 nonDefaultProject="true"
 		/>
 
-		<projectConfigurable instance="com.jantvrdik.intellij.latte.ui.LatteCustomModifierSettingsForm"
+		<projectConfigurable instance="org.nette.latte.ui.LatteCustomModifierSettingsForm"
 							 displayName="Filters"
 							 parentId="Latte.LatteSettingsForm"
 							 id="Latte.LatteCustomModifierSettingsForm"
 							 nonDefaultProject="true"
 		/>
 
-		<projectConfigurable instance="com.jantvrdik.intellij.latte.ui.LatteCustomFunctionSettingsForm"
+		<projectConfigurable instance="org.nette.latte.ui.LatteCustomFunctionSettingsForm"
 							 displayName="Functions"
 							 parentId="Latte.LatteSettingsForm"
 							 id="Latte.LatteCustomFunctionSettingsForm"
 							 nonDefaultProject="true"
 		/>
 
-		<projectConfigurable instance="com.jantvrdik.intellij.latte.ui.LatteVariableSettingsForm"
+		<projectConfigurable instance="org.nette.latte.ui.LatteVariableSettingsForm"
 							 displayName="Variables"
 							 parentId="Latte.LatteSettingsForm"
 							 id="Latte.LatteVariableSettingsForm"
@@ -101,67 +98,67 @@
 		<localInspection language="Latte" shortName="ModifierNotAllowed" id="ModifierNotAllowed"
 						 displayName="Modifier not allowed"
 						 groupName="Latte" enabledByDefault="true" level="WARNING"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.ModifierNotAllowedInspection"/>
+						 implementationClass="org.nette.latte.inspections.ModifierNotAllowedInspection"/>
 
 		<localInspection language="Latte" shortName="LatteModifierDefinition" id="LatteModifierDefinition"
 						 displayName="Modifier definition"
 						 groupName="Latte" enabledByDefault="true" level="WARNING"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.ModifierDefinitionInspection"/>
+						 implementationClass="org.nette.latte.inspections.ModifierDefinitionInspection"/>
 
 		<localInspection language="Latte" shortName="DeprecatedTag" id="DeprecatedTag"
 						 displayName="Deprecated tag"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.DeprecatedTagInspection"/>
+						 implementationClass="org.nette.latte.inspections.DeprecatedTagInspection"/>
 
 		<localInspection language="Latte" shortName="LatteVariablesProblems" id="LatteVariablesProblems"
 						 displayName="Variables problems"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.VariablesInspection"/>
+						 implementationClass="org.nette.latte.inspections.VariablesInspection"/>
 
 		<localInspection language="Latte" shortName="LatteClassUsages" id="LatteClassUsages"
 						 displayName="Class usages"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.ClassUsagesInspection"/>
+						 implementationClass="org.nette.latte.inspections.ClassUsagesInspection"/>
 
 		<localInspection language="Latte" shortName="LatteMethodUsages" id="LatteMethodUsages"
 						 displayName="Method usages"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.MethodUsagesInspection"/>
+						 implementationClass="org.nette.latte.inspections.MethodUsagesInspection"/>
 
 		<localInspection language="Latte" shortName="StaticPropertyUsages" id="StaticPropertyUsages"
 						 displayName="Static property usages"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.StaticPropertyUsagesInspection"/>
+						 implementationClass="org.nette.latte.inspections.StaticPropertyUsagesInspection"/>
 
 		<localInspection language="Latte" shortName="LatteConstantUsages" id="LatteConstantUsages"
 						 displayName="Constant usages"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.ConstantUsagesInspection"/>
+						 implementationClass="org.nette.latte.inspections.ConstantUsagesInspection"/>
 
 		<localInspection language="Latte" shortName="LattePropertyUsages" id="LattePropertyUsages"
 						 displayName="Property usages"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.PropertyUsagesInspection"/>
+						 implementationClass="org.nette.latte.inspections.PropertyUsagesInspection"/>
 
 		<localInspection language="Latte" shortName="LatteTemplateType" id="LatteTemplateType"
 						 displayName="Template type"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.MacroTemplateTypeInspection"/>
+						 implementationClass="org.nette.latte.inspections.MacroTemplateTypeInspection"/>
 
 		<localInspection language="Latte" shortName="LatteVarType" id="LatteVarType"
 						 displayName="Var type"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.MacroVarTypeInspection"/>
+						 implementationClass="org.nette.latte.inspections.MacroVarTypeInspection"/>
 
 		<localInspection language="Latte" shortName="LatteTagVar" id="LatteTagVar"
 						 displayName="Var definition"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.MacroVarInspection"/>
+						 implementationClass="org.nette.latte.inspections.MacroVarInspection"/>
 
 		<localInspection language="Latte" shortName="LatteIterableType" id="LatteIterableType"
 						 displayName="Latte iterable types"
 						 groupName="Latte" enabledByDefault="true"
-						 implementationClass="com.jantvrdik.intellij.latte.inspections.LatteIterableTypeInspection"/>
+						 implementationClass="org.nette.latte.inspections.LatteIterableTypeInspection"/>
 	</extensions>
 
 	<application-components>
