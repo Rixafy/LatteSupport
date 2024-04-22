@@ -1,20 +1,36 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+## [1.0.2] - 2024-04-22
 
-## v1.0.2
-- Fix "Cannot distinguish StubFileElementTypes" error (performance issue)
+### Fixed
 
-## v1.0.1
-- Add null-safe operator support
-- Automatically attach plugin .jars to latest release
+- Error `Cannot distinguish StubFileElementTypes` (performance issue)
 
-## v1.0.0
-- Forked original plugin (https://github.com/nette-intellij/intellij-latte)
-- Restored deleted features (code completion etc.)
-- Code cleanup (removed unused libs, docs, ads, sponsoring info, simplified readme)
-- Updated Gradle to 8.7
-- Updated grammar kit and intellij platform libraries
-- Added support for PhpStorm up to 2024.1
-- Fixed build process
-- Added automatic builds on push via github actions
+## [1.0.1] - 2024-04-21
+
+### Added
+
+- Null-safe operator support
+- Plugin .jars to latest release
+
+## [1.0.0] - 2024-04-21
+
+### Added
+
+- Support for PhpStorm up to 2024.1
+- Previously deleted features (code completion etc.)
+- Automatic builds on push via GitHub actions
+
+### Fixed
+
+- Build process
+
+### Changed
+
+- Plugin name to Latte Support (fork of https://github.com/nette-intellij/intellij-latte)
+- Gradle to version 8.7
+- Grammar kit and intellij platform versions to latest
+
+### Removed
+
+- Unused libs, docs, ads, sponsoring info, some readme content
