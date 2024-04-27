@@ -13,7 +13,7 @@ import java.util.List;
 public class LatteMacroTagReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
     public LatteMacroTagReference(@NotNull LatteMacroTag element, TextRange textRange) {
-        super(element, textRange);
+        super(element, textRange, true);
     }
 
     @NotNull
@@ -25,13 +25,18 @@ public class LatteMacroTagReference extends PsiReferenceBase<PsiElement> impleme
         }
 
         List<ResolveResult> results = new ArrayList<>();
-        results.add(new PsiElementResolveResult(((LatteMacroClassic) parent).getOpenTag()));
+
+        LatteMacroTag openTag = ((LatteMacroClassic) parent).getOpenTag();
+        if (openTag.getReference() != this) {
+            results.add(new PsiElementResolveResult(openTag));
+        }
 
         LatteMacroTag closeTag = ((LatteMacroClassic) parent).getCloseTag();
-        if (closeTag != null) {
+        if (closeTag != null && closeTag.getReference() != this) {
             results.add(new PsiElementResolveResult(closeTag));
         }
-        return results.toArray(new ResolveResult[results.size()]);
+
+        return results.toArray(new ResolveResult[0]);
     }
 
     @Nullable

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5] - 2024-04-27
+
+### Fixed
+
+- IndexOutOfBoundsException when not closing a tag right away
+- RangeOverlapException in closed tag references
+
 ## [1.0.4] - 2024-04-26
 
 ### Changed

@@ -28,7 +28,8 @@ public abstract class LattePairMacroImpl extends LattePsiElementImpl implements 
 
 	@Override
 	public @Nullable LatteMacroTag getCloseTag() {
-		return getMacroTagList().get(1);
+		List<LatteMacroTag> tags = getMacroTagList();
+		return tags.size() < 2 ? null : tags.get(1);
 	}
 
 	public @NotNull LatteMacroTag getOpenTag() {
