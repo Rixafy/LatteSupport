@@ -198,9 +198,10 @@ public class LatteReferenceContributor extends PsiReferenceContributor {
                             return PsiReference.EMPTY_ARRAY;
                         }
 
+                        int offset = 1;
                         int length = element instanceof LatteMacroCloseTag ? 1 : 0;
 
-                        return new PsiReference[]{new LatteMacroTagReference((LatteMacroTag) element, new TextRange(1 + length, valueLength + 2))};
+                        return new PsiReference[]{new LatteMacroTagReference((LatteMacroTag) element, new TextRange(offset + length, offset + valueLength + length))};
                     }
                 });
 
