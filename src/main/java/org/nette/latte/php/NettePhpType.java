@@ -16,8 +16,6 @@ public class NettePhpType {
 
     final private static String[] nativeTypeHints = new String[]{"string", "int", "bool", "object", "float", "array", "mixed", "null", "callable", "iterable"};
 
-    final private static String[] iterableTypes = new String[]{"\\Iterator", "\\Generator"};
-
     final private static String[] nativeIterableTypeHints = new String[]{"array", "iterable"};
 
     final private static String[] magicMethods = new String[]{"__construct", "__callstatic", "__call", "__get", "__isset", "__clone", "__set", "__unset"};
@@ -317,11 +315,16 @@ public class NettePhpType {
         }
 
         Collection<PhpClass> classes = getPhpClasses(project, depth);
+        Collection<PhpClass> iterableClasses = LattePhpUtil.getInterfacesByFQN(project, "\\iterable");
+
         for (PhpClass phpClass : classes) {
-            if (LattePhpUtil.isReferenceFor(getIterableTypes(), phpClass)) {
-                return true;
+            for (PhpClass iterableClass : iterableClasses) {
+                if (phpClass.getClass().isInstance(iterableClass)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
@@ -514,11 +517,6 @@ public class NettePhpType {
     @NotNull
     public static String[] getNativeTypeHints() {
         return nativeTypeHints;
-    }
-
-    @NotNull
-    public static String[] getIterableTypes() {
-        return iterableTypes;
     }
 
     public static boolean isNativeTypeHint(final @NotNull String value) {

@@ -160,6 +160,10 @@ public class LattePhpUtil {
         return getPhpIndex(project).getAnyByFQN(className);
     }
 
+    public static Collection<PhpClass> getInterfacesByFQN(Project project, String className) {
+        return getPhpIndex(project).getInterfacesByFQN(className);
+    }
+
     public static Collection<Function> getFunctionByName(Project project, String functionName) {
         return getPhpIndex(project).getFunctionsByName(functionName);
     }
