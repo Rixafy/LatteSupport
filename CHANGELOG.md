@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.6] - 2024-04-28
+
+### Fixed
+
+- Pair tag hover length (caused by previous fix)
+- Iterable type detection (warnings only, can't read generics yet)
+- End tag auto-completion (double slashes)
+
 ## [1.0.5] - 2024-04-27
 
 ### Fixed
