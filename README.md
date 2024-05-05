@@ -41,3 +41,10 @@ Building
 ```$xslt
 $ ./gradlew build -x test
 ```
+
+Testing in dummy IDE
+------------
+
+```$xslt
+$ ./gradlew runide
+```
