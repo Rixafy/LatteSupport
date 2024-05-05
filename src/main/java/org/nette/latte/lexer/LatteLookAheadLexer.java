@@ -95,7 +95,7 @@ public class LatteLookAheadLexer extends LookAheadLexer {
 
 	private static boolean isMacroTypeMacro(Lexer baseLexer, @NotNull List<String> types) {
 		CharSequence tagName = baseLexer.getBufferSequence().subSequence(baseLexer.getTokenStart(), baseLexer.getTokenEnd());
-		if (tagName.isEmpty()) {
+		if (tagName.length() == 0) {
 			return false;
 		}
 
