@@ -1,5 +1,6 @@
 package org.nette.latte.reference;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.PsiElement;
 import com.jetbrains.php.PhpIndex;
 import com.jetbrains.php.lang.psi.elements.Method;
@@ -14,26 +15,26 @@ import java.util.List;
 
 public class LatteLinkResolver {
     private final LatteFile file;
-    private final HashMap<String, @Nullable PsiElement> cache = new HashMap<>();
-    private static List<PhpClass> presenters = null;
+    //private final HashMap<String, @Nullable PsiElement> cache = new HashMap<>();
+    //private static List<PhpClass> presenters = null;
 
     public LatteLinkResolver(LatteFile file) {
         this.file = file;
     }
 
     public void reset() {
-        cache.clear();
-        presenters = null;
+        //cache.clear();
+        //presenters = null;
     }
 
     public @Nullable PsiElement resolveAction(String action, @Nullable String presenter) {
         String key = presenter + ":" + action;
-        if (cache.containsKey(key)) {
+        /*if (cache.containsKey(key)) {
             return cache.get(key);
-        }
+        }*/
 
         PsiElement result = calculateAction(action, presenter);
-        cache.put(key, result);
+        //cache.put(key, result);
         return result;
     }
 
@@ -42,22 +43,17 @@ public class LatteLinkResolver {
         List<String> presenterNames = guessPresenterNames(presenter);
         List<PhpClass> matchingPresenters = getMatchingPresenters(presenterNames, false);
 
+        Logger.getInstance(LatteLinkResolver.class).warn("Matching presenters: " + matchingPresenters);
+
         if (matchingPresenters.isEmpty()) {
             return null;
         }
 
         for (PhpClass presenterClass : matchingPresenters) {
             for (String actionName : actions) {
-                PsiElement methodReference = getMethodReference(presenterClass, List.of("action" + StringUtils.capitalize(actionName), "render" + StringUtils.capitalize(actionName), "startup"));
-                if (methodReference != null) {
-                    return methodReference;
-                }
-
-                for (PhpClass parent : presenterClass.getSupers()) {
-                    methodReference = getMethodReference(parent, List.of("action" + StringUtils.capitalize(actionName), "render" + StringUtils.capitalize(actionName)));
-                    if (methodReference != null) {
-                        return methodReference;
-                    }
+                Method method = findMethod(presenterClass, List.of("action" + StringUtils.capitalize(actionName), "render" + StringUtils.capitalize(actionName), "startup"));
+                if (method != null && (!method.getName().equals("startup") || method.getClass().getName().equals(presenterClass.getName()))) {
+                    return method;
                 }
             }
         }
@@ -67,12 +63,12 @@ public class LatteLinkResolver {
 
     public @Nullable PsiElement resolveSignal(String signal, @Nullable String presenter) {
         String key = presenter + ":" + signal + "!";
-        if (cache.containsKey(key)) {
+        /*if (cache.containsKey(key)) {
             return cache.get(key);
-        }
+        }*/
 
         PsiElement result = calculateSignal(signal, presenter);
-        cache.put(key, result);
+        //cache.put(key, result);
         return result;
     }
 
@@ -85,16 +81,9 @@ public class LatteLinkResolver {
         }
 
         for (PhpClass presenterClass : matchingPresenters) {
-            PsiElement methodReference = getMethodReference(presenterClass, List.of("handle" + StringUtils.capitalize(signal)));
-            if (methodReference != null) {
-                return methodReference;
-            }
-
-            for (PhpClass parent : presenterClass.getSupers()) {
-                methodReference = getMethodReference(parent, List.of("handle" + StringUtils.capitalize(signal)));
-                if (methodReference != null) {
-                    return methodReference;
-                }
+            PsiElement method = findMethod(presenterClass, List.of("handle" + StringUtils.capitalize(signal)));
+            if (method != null) {
+                return method;
             }
         }
 
@@ -103,12 +92,12 @@ public class LatteLinkResolver {
 
     public @Nullable PsiElement resolvePresenter(String presenter, boolean preferAbstract) {
         String key = presenter + ":" + preferAbstract;
-        if (cache.containsKey(key)) {
+        /*if (cache.containsKey(key)) {
             return cache.get(key);
-        }
+        }*/
 
         PsiElement result = calculatePresenter(presenter, preferAbstract);
-        cache.put(key, result);
+        //cache.put(key, result);
         return result;
     }
 
@@ -122,7 +111,7 @@ public class LatteLinkResolver {
         return matchingPresenters.get(0);
     }
 
-    private @Nullable PsiElement getMethodReference(PhpClass phpClass, List<String> methodNames) {
+    private @Nullable Method findMethod(PhpClass phpClass, List<String> methodNames) {
         for (String methodName : methodNames) {
             Method method = phpClass.findMethodByName(methodName);
             if (method != null) {
@@ -229,11 +218,7 @@ public class LatteLinkResolver {
             return new ArrayList<>();
         }
 
-        if (presenters == null) {
-            presenters = getSubclassTree(presenterParent);
-        }
-
-        return presenters;
+        return getSubclassTree(presenterParent);
     }
 
     private List<PhpClass> getSubclassTree(PhpClass phpClass) {
