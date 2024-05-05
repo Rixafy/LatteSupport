@@ -9,6 +9,7 @@ import com.intellij.util.IncorrectOperationException;
 import org.nette.latte.php.LattePhpUtil;
 import org.nette.latte.php.NettePhpType;
 import org.nette.latte.psi.LatteElementFactory;
+import org.nette.latte.psi.LatteFile;
 import org.nette.latte.psi.elements.LattePhpClassUsageElement;
 import org.nette.latte.psi.impl.LattePhpElementImpl;
 import org.nette.latte.utils.LatteUtil;
@@ -29,6 +30,12 @@ public abstract class LattePhpClassUsageElementImpl extends LattePhpElementImpl 
 	public void subtreeChanged() {
 		super.subtreeChanged();
 		reset();
+		if (isTemplateType()) {
+			LatteFile file = getLatteFile();
+			if (file != null) {
+				file.resetTemplateTypes();
+			}
+		}
 	}
 
 	@Override

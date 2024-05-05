@@ -53,9 +53,15 @@ public class LatteFile extends PsiFileBase {
 		variables = null;
 		sortedVariables = null;
 		templateType = null;
+		templateTypes = null;
 		contextData = null;
 		contexts = null;
 		linkResolver.reset();
+	}
+
+	public void resetTemplateTypes() {
+		templateTypes = null;
+		templateType = null;
 	}
 
 	public @NotNull List<LattePhpCachedVariable> getCachedVariables() {
