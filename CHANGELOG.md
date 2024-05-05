@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1] - 2024-05-05
+
+### Fixed
+
+- Reloading variables when {templateType} is changed
+- Cache bugs in link references (e.g. when renaming files / methods) - disabled cache
+
 ## [1.2.0] - 2024-05-05
 
 ### Added
