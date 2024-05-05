@@ -145,7 +145,10 @@ phpContent       ::= (phpForeach | phpFor | phpArrayOfVariables | phpArray | php
 
 blockName        ::= "#" T_PHP_IDENTIFIER
 
-linkDestination    ::= T_LINK_DESTINATION T_LINK_DESTINATION*
+linkDestination    ::= T_LINK_DESTINATION T_LINK_DESTINATION* {
+                        mixin="org.nette.latte.psi.impl.elements.LatteLinkDestinationElementImpl"
+                        implements="org.nette.latte.psi.elements.LatteLinkDestinationElement"
+                    }
 
 filePath    ::= T_FILE_PATH T_FILE_PATH* {
                         mixin="org.nette.latte.psi.impl.elements.LatteFilePathElementImpl"

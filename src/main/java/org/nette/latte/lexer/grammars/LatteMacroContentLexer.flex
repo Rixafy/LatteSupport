@@ -18,7 +18,8 @@ SYMBOL = [_[:letter:]][_0-9[:letter:]]*(-[_0-9[:letter:]]+)* //todo: unicode let
 FUNCTION_CALL=[a-zA-Z_][a-zA-Z0-9_]* "("
 CLASS_NAME=\\?[a-zA-Z_][a-zA-Z0-9_]*\\[a-zA-Z_][a-zA-Z0-9_\\]* | \\[a-zA-Z_][a-zA-Z0-9_]*
 CONTENT_TYPE=[a-zA-Z\-][a-zA-Z0-9\-]*\/[a-zA-Z\-][a-zA-Z0-9\-\.]*
-FILE_IMPORT=[\w\-.@()#$%\^&*()!\/]* ".latte"
+FILE_IMPORT=[\w\-.@()#$%\^&*()!\/]+ ".latte"
+SIGNAL=[a-zA-Z\-\:]+ "!"
 
 %%
 
@@ -43,6 +44,10 @@ FILE_IMPORT=[\w\-.@()#$%\^&*()!\/]* ".latte"
 
     {FILE_IMPORT} {
         return T_FILE_PATH;
+    }
+
+    {SIGNAL} {
+        return T_LINK_DESTINATION;
     }
 
 	[^] {

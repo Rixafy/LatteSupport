@@ -57,7 +57,7 @@ public class LattePhpCompletionProvider extends BaseLatteCompletionProvider {
 		} else if (element instanceof LattePhpProperty || (element instanceof LattePhpMethod && !((LattePhpMethod) element).isStatic())) {
 			attachPhpCompletions(parameters, context, result, (BaseLattePhpElement) element, false);
 
-		} else if (!(element instanceof LatteMacroModifier) && !(element instanceof LattePhpString) && !(element instanceof LatteFilePath)) {
+		} else if (!(element instanceof LatteMacroModifier) && !(element instanceof LattePhpString) && !(element instanceof LatteFilePath) && !(element instanceof LatteLinkDestination)) {
 			classCompletionProvider.addCompletions(parameters, context, result);
 			namespaceCompletionProvider.addCompletions(parameters, context, result);
 			if (isInClassDefinition(element)) {

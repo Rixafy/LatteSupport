@@ -17,7 +17,6 @@ import java.util.List;
 public abstract class LatteFilePathElementImpl extends LattePsiElementImpl implements LatteFilePathElement {
 	private @Nullable List<PsiReference> references = null;
 	private @Nullable PsiElement identifier = null;
-	private int macroNameLength = -1;
 
 	public LatteFilePathElementImpl(@NotNull ASTNode node) {
 		super(node);
@@ -27,7 +26,6 @@ public abstract class LatteFilePathElementImpl extends LattePsiElementImpl imple
 	public void subtreeChanged() {
 		super.subtreeChanged();
 		identifier = null;
-		macroNameLength = -1;
 		references = null;
 	}
 
@@ -38,18 +36,6 @@ public abstract class LatteFilePathElementImpl extends LattePsiElementImpl imple
 		}
 
 		return identifier;
-	}
-
-	@Override
-	public int getLength() {
-		if (macroNameLength == -1) {
-			ASTNode nameNode = this.getNode().findChildByType(LatteTypes.T_FILE_PATH);
-			if (nameNode != null) {
-				macroNameLength = nameNode.getTextLength();
-			}
-		}
-
-		return macroNameLength;
 	}
 
 	@Override

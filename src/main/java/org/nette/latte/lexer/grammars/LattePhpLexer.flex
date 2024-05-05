@@ -31,7 +31,7 @@ NUMBER = [+-]?[0-9]+(\.[0-9]+)?([Ee][+-]?[0-9]+)?
 IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
 CLASS_NAME=\\?[a-zA-Z_][a-zA-Z0-9_]*\\[a-zA-Z_][a-zA-Z0-9_\\]* | \\[a-zA-Z_][a-zA-Z0-9_]*
 CONTENT_TYPE=[a-zA-Z\-][a-zA-Z0-9\-]*\/[a-zA-Z\-][a-zA-Z0-9\-\.]*
-FILE_IMPORT=[\w\-.@()#$%\^&*()!\/]* ".latte"
+FILE_IMPORT=[\w\-.@()#$%\^&*()!\/]+ ".latte"
 
 // keywords
 TYPES=("string" | "int" | "bool" | "object" | "float" | "array" | "callable" | "iterable" | "void")

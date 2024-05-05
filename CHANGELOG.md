@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0] - 2024-05-05
+
+### Added
+
+- Support for nette links - linking presenter, signal, action, etc.
+
 ## [1.1.0] - 2024-05-05
 
 ### Added
