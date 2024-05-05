@@ -144,13 +144,20 @@ public class LatteLinkResolver {
         }
 
         if (preferAbstract) {
-            List<PhpClass> abstracts = matchingPresenters.values().stream().filter(PhpClass::isAbstract).toList();
+            List<PhpClass> abstracts = new ArrayList<>();
+
+            for (PhpClass presenter : matchingPresenters.values()) {
+                if (presenter.isAbstract()) {
+                    abstracts.add(presenter);
+                }
+            }
+
             if (!abstracts.isEmpty()) {
                 return abstracts;
             }
         }
 
-        return matchingPresenters.values().stream().toList();
+        return matchingPresenters.isEmpty() ? new ArrayList<>() : new ArrayList<>(matchingPresenters.values());
     }
 
     private List<String> guessPresenterNames(@Nullable String fallback) {
