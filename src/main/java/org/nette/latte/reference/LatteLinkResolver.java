@@ -1,6 +1,5 @@
 package org.nette.latte.reference;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.PsiElement;
 import com.jetbrains.php.PhpIndex;
 import com.jetbrains.php.lang.psi.elements.Method;
@@ -42,8 +41,6 @@ public class LatteLinkResolver {
         List<String> actions = new ArrayList<>(action.equals("this") ? guessActionName() : List.of(action));
         List<String> presenterNames = guessPresenterNames(presenter);
         List<PhpClass> matchingPresenters = getMatchingPresenters(presenterNames, false);
-
-        Logger.getInstance(LatteLinkResolver.class).warn("Matching presenters: " + matchingPresenters);
 
         if (matchingPresenters.isEmpty()) {
             return null;
