@@ -23,6 +23,7 @@ public class LatteLookAheadLexer extends LookAheadLexer {
 	private static final TokenSet WHITESPACES = TokenSet.create(TokenType.WHITE_SPACE, LatteTypes.T_WHITESPACE);
 	private static final TokenSet TAG_TAGS = TokenSet.create(LatteTypes.T_HTML_TAG_ATTR_EQUAL_SIGN, LatteTypes.T_HTML_TAG_ATTR_DQ);
 
+	private static final String IDENTIFIER_FILES = "files";
 	private static final String IDENTIFIER_LINKS = "links";
 	private static final String IDENTIFIER_TYPES = "types";
 
@@ -56,8 +57,15 @@ public class LatteLookAheadLexer extends LookAheadLexer {
 			wasTypeDefinition = true;
 		}
 
+		boolean wasFilePath = false;
+		if ((type == LatteTypes.T_PHP_CONTENT_TYPE || type == LatteTypes.T_PHP_MULTIPLICATIVE_OPERATORS || type == LatteTypes.T_MACRO_ARGS || type == LatteTypes.T_PHP_CONTENT || type == LatteTypes.T_PHP_IDENTIFIER || type == LatteTypes.T_PHP_KEYWORD) && needReplaceAsMacro(IDENTIFIER_FILES)) {
+			type = LatteTypes.T_FILE_PATH;
+			wasFilePath = true;
+		}
+
 		super.addToken(endOffset, type);
 		if (!TAG_TAGS.contains(type)) {
+			checkMacroType(IDENTIFIER_FILES, type, LatteTagsUtil.FILE_TAGS_LIST, wasFilePath);
 			checkMacroType(IDENTIFIER_LINKS, type, LatteTagsUtil.LINK_TAGS_LIST, wasLinkDestination);
 			checkMacroType(IDENTIFIER_TYPES, type, LatteTagsUtil.TYPE_TAGS_LIST, wasTypeDefinition);
 		}
@@ -87,9 +95,10 @@ public class LatteLookAheadLexer extends LookAheadLexer {
 
 	private static boolean isMacroTypeMacro(Lexer baseLexer, @NotNull List<String> types) {
 		CharSequence tagName = baseLexer.getBufferSequence().subSequence(baseLexer.getTokenStart(), baseLexer.getTokenEnd());
-		if (tagName.length() == 0) {
+		if (tagName.isEmpty()) {
 			return false;
 		}
+
 		return types.contains(tagName.toString());
 	}
 }

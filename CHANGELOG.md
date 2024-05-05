@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0] - 2024-05-05
+
+### Added
+
+- File and directory linking in {import}, {include} and similar tags
+- Auto-completion of directories and latte files in file import tags
+
 ## [1.0.6] - 2024-04-28
 
 ### Fixed

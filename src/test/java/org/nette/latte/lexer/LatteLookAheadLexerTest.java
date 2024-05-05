@@ -10,7 +10,7 @@ import static org.nette.latte.psi.LatteTypes.*;
 public class LatteLookAheadLexerTest {
 	@Test
 	@SuppressWarnings("unchecked")
-	public void testMacroLexer() {
+	public void testLinkMacroLexer() {
 		Lexer lexer = new LatteLookAheadLexer(new LatteLexer());
 
 		lexer.start("{link default}");

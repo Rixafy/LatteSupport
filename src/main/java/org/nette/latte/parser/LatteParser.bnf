@@ -141,11 +141,16 @@ htmlEmptyTag    ::= T_HTML_OPEN_TAG_OPEN htmlTagContent (T_HTML_OPEN_TAG_CLOSE |
                      }
 
 // PHP tokens
-phpContent       ::= (phpForeach | phpFor | phpArrayOfVariables | phpArray | phpKeyArrayItem | blockName | linkDestination | phpInternalExpression)+
+phpContent       ::= (phpForeach | phpFor | phpArrayOfVariables | phpArray | phpKeyArrayItem | blockName | linkDestination | filePath | phpInternalExpression)+
 
 blockName        ::= "#" T_PHP_IDENTIFIER
 
 linkDestination    ::= T_LINK_DESTINATION T_LINK_DESTINATION*
+
+filePath    ::= T_FILE_PATH T_FILE_PATH* {
+                        mixin="org.nette.latte.psi.impl.elements.LatteFilePathElementImpl"
+                        implements="org.nette.latte.psi.elements.LatteFilePathElement"
+                    }
 
 phpVariable        ::= T_MACRO_ARGS_VAR phpArrayUsage* {
                         mixin="org.nette.latte.psi.impl.elements.LattePhpVariableElementImpl"
@@ -328,10 +333,10 @@ private
 phpPropertyDefinition ::= T_WHITESPACE? T_PHP_OBJECT_OPERATOR T_WHITESPACE? phpProperty
 
 private
-phpSingleQuotedString ::= T_PHP_SINGLE_QUOTE_LEFT T_MACRO_ARGS_STRING? T_PHP_SINGLE_QUOTE_RIGHT {pin=1}
+phpSingleQuotedString ::= T_PHP_SINGLE_QUOTE_LEFT (T_MACRO_ARGS_STRING | filePath)? T_PHP_SINGLE_QUOTE_RIGHT {pin=1}
 
 private
-phpDoubleQuotedString ::= T_PHP_DOUBLE_QUOTE_LEFT (T_MACRO_ARGS_STRING | phpVariable)* T_PHP_DOUBLE_QUOTE_RIGHT {pin=1}
+phpDoubleQuotedString ::= T_PHP_DOUBLE_QUOTE_LEFT (T_MACRO_ARGS_STRING | phpVariable | filePath)* T_PHP_DOUBLE_QUOTE_RIGHT {pin=1}
 
 
 // tokens sets

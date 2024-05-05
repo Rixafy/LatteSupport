@@ -45,4 +45,49 @@ public class LatteLexerTest {
 			Pair.create(T_HTML_TAG_CLOSE, ">"),
 		});
 	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testFileImport() throws Exception {
+		Lexer lexer = new LatteLexer();
+
+		lexer.start("{include ../@Layout/test.latte}");
+		assertTokens(lexer, new Pair[] {
+				Pair.create(T_MACRO_OPEN_TAG_OPEN, "{"),
+				Pair.create(T_MACRO_NAME, "include"),
+				Pair.create(T_WHITESPACE, " "),
+				Pair.create(T_FILE_PATH, "../@Layout/test.latte"),
+				Pair.create(T_MACRO_TAG_CLOSE, "}"),
+		});
+
+		lexer.start("{include '../@Layout/test.latte'}");
+		assertTokens(lexer, new Pair[] {
+				Pair.create(T_MACRO_OPEN_TAG_OPEN, "{"),
+				Pair.create(T_MACRO_NAME, "include"),
+				Pair.create(T_WHITESPACE, " "),
+				Pair.create(T_PHP_SINGLE_QUOTE_LEFT, "'"),
+				Pair.create(T_FILE_PATH, "../@Layout/test.latte"),
+				Pair.create(T_PHP_SINGLE_QUOTE_RIGHT, "'"),
+				Pair.create(T_MACRO_TAG_CLOSE, "}"),
+		});
+
+		lexer.start("{if $test}{include \"../@Layout/test.latte\"}{/if}");
+		assertTokens(lexer, new Pair[] {
+				Pair.create(T_MACRO_OPEN_TAG_OPEN, "{"),
+				Pair.create(T_MACRO_NAME, "if"),
+				Pair.create(T_WHITESPACE, " "),
+				Pair.create(T_MACRO_ARGS_VAR, "$test"),
+				Pair.create(T_MACRO_TAG_CLOSE, "}"),
+				Pair.create(T_MACRO_OPEN_TAG_OPEN, "{"),
+				Pair.create(T_MACRO_NAME, "include"),
+				Pair.create(T_WHITESPACE, " "),
+				Pair.create(T_PHP_DOUBLE_QUOTE_LEFT, "\""),
+				Pair.create(T_FILE_PATH, "../@Layout/test.latte"),
+				Pair.create(T_PHP_DOUBLE_QUOTE_RIGHT, "\""),
+				Pair.create(T_MACRO_TAG_CLOSE, "}"),
+				Pair.create(T_MACRO_CLOSE_TAG_OPEN, "{/"),
+				Pair.create(T_MACRO_NAME, "if"),
+				Pair.create(T_MACRO_TAG_CLOSE, "}"),
+		});
+	}
 }

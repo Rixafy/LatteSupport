@@ -20,13 +20,16 @@ public class LatteTagsUtil {
         ELSE("else"),
         ELSEIF("elseif"),
         ELSEIFSET("elseifset"),
-        EXTENDS("extends"),
         FOR("for"),
         IF("if"),
         IFCHANGED("ifchanged"),
         IFSET("ifset"),
         IMPORT("import"),
+        INCLUDE("include"),
         LAYOUT("layout"),
+        EXTENDS("extends"),
+        EMBED("embed"),
+        SANDBOX("extends"),
         LINK("link"),
         N_HREF("n:href"),
         PARAMETERS("parameters"),
@@ -55,6 +58,15 @@ public class LatteTagsUtil {
             Type.LINK.getTagName(),
             Type.PLINK.getTagName(),
             Type.N_HREF.getTagName()
+    );
+
+    public static final List<String> FILE_TAGS_LIST = Arrays.asList(
+            Type.IMPORT.getTagName(),
+            Type.INCLUDE.getTagName(),
+            Type.LAYOUT.getTagName(),
+            Type.EXTENDS.getTagName(),
+            Type.SANDBOX.getTagName(),
+            Type.EMBED.getTagName()
     );
 
     public static final List<String> CONTEXT_TAGS_LIST = Arrays.asList(
