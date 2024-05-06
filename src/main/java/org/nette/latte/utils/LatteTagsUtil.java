@@ -29,7 +29,7 @@ public class LatteTagsUtil {
         LAYOUT("layout"),
         EXTENDS("extends"),
         EMBED("embed"),
-        SANDBOX("extends"),
+        SANDBOX("sandbox"),
         LINK("link"),
         N_HREF("n:href"),
         PARAMETERS("parameters"),
