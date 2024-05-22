@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0] - 2024-05-22
+
+### Added
+
+- Link autocompletion in `{link}` and `n:href`
+
 ## [1.2.1] - 2024-05-05
 
 ### Fixed
