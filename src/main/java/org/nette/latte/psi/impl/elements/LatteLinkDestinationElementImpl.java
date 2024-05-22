@@ -2,16 +2,15 @@ package org.nette.latte.psi.impl.elements;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.util.text.Strings;
 import com.intellij.psi.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.nette.latte.psi.LatteFile;
 import org.nette.latte.psi.LatteTypes;
 import org.nette.latte.psi.elements.LatteLinkDestinationElement;
 import org.nette.latte.psi.impl.LattePsiElementImpl;
 import org.nette.latte.psi.impl.LattePsiImplUtil;
+import org.nette.latte.reference.references.LatteLinkDestinationReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,48 +47,28 @@ public abstract class LatteLinkDestinationElementImpl extends LattePsiElementImp
 	@Override
 	public PsiReference @NotNull [] getReferences() {
 		if (references == null) {
+			String wholeText = this.getLinkDestination();
+
 			references = new ArrayList<>();
 			List<String> presenters = new ArrayList<>();
-			for (String presenter : this.getLinkDestination().trim().split(":")) {
+			for (String presenter : wholeText.trim().split(":")) {
 				if (!presenter.isEmpty() && presenter.equals(StringUtils.capitalize(presenter))) {
 					presenters.add(presenter);
 				}
 			}
 
-			String lastPresenter = !presenters.isEmpty() ? presenters.get(presenters.size() - 1) : null;
+			String currentPresenter = !presenters.isEmpty() ? presenters.get(presenters.size() - 1) : null;
+			String previousPresenter = presenters.size() > 1 ? presenters.get(presenters.size() - 2) : null;
+
+			if (currentPresenter != null && currentPresenter.equals("IntellijIdeaRulezzz")) {
+				currentPresenter = null;
+			}
 
 			int textRangeIndex = 0;
 
-			for (String entity : this.getLinkDestination().split(":")) {
+			for (String entity : wholeText.split(":")) {
 				if (!entity.isEmpty()) {
-					int finalTextRangeIndex = textRangeIndex;
-
-					references.add(new PsiReferenceBase<PsiElement>(this, new TextRange(finalTextRangeIndex, finalTextRangeIndex + entity.length()), true) {
-						private final String text = entity;
-
-						@Override
-						public @Nullable PsiElement resolve() {
-							LatteFile file = getLatteFile();
-							if (file == null) {
-								return null;
-							}
-
-							if (text.endsWith("!")) {
-								return file.getLinkResolver().resolveSignal(text.substring(0, text.length() - 1), lastPresenter);
-
-							} else if (!text.equals(Strings.capitalize(text))) {
-								return file.getLinkResolver().resolveAction(text, lastPresenter);
-
-							} else {
-								return file.getLinkResolver().resolvePresenter(text, !text.equals(lastPresenter));
-							}
-                        }
-
-						@Override
-						public Object @NotNull [] getVariants() {
-							return new Object[0];
-						}
-					});
+					references.add(new LatteLinkDestinationReference(this, new TextRange(textRangeIndex, textRangeIndex + entity.length()), true, entity.replace("IntellijIdeaRulezzz", ""), currentPresenter, previousPresenter));
 					textRangeIndex += entity.length() + 1;
 
 				} else {

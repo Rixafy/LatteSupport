@@ -9,7 +9,7 @@ import org.nette.latte.LatteFileType;
 import org.nette.latte.LatteLanguage;
 import org.nette.latte.php.NettePhpType;
 import org.nette.latte.psi.elements.LattePhpVariableElement;
-import org.nette.latte.reference.LatteLinkResolver;
+import org.nette.latte.completion.resolvers.LinkResolver;
 import org.nette.latte.utils.LattePhpCachedVariable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +26,7 @@ public class LatteFile extends PsiFileBase {
 	@Nullable List<LattePhpCachedVariable> sortedVariables = null;
 	@Nullable NettePhpType templateType = null;
 	@Nullable List<LattePhpClassUsage> templateTypes = null;
-	@NotNull LatteLinkResolver linkResolver = new LatteLinkResolver(this);
+	@NotNull LinkResolver linkResolver = new LinkResolver(this);
 
 	public LatteFile(@NotNull FileViewProvider viewProvider) {
 		super(viewProvider, LatteLanguage.INSTANCE);
@@ -222,7 +222,7 @@ public class LatteFile extends PsiFileBase {
 	}
 
 	@NotNull
-	public LatteLinkResolver getLinkResolver() {
+	public LinkResolver getLinkResolver() {
 		return linkResolver;
 	}
 }
