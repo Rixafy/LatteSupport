@@ -173,4 +173,8 @@ tasks {
         systemProperty("jb.privacy.policy.text", "<!--999.999-->")
         systemProperty("jb.consents.confirmation.enabled", "false")
     }
+
+    publishPlugin {
+        token.set(environment("PLUGIN_PUBLISH_TOKEN"))
+    }
 }
