@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1] - 2024-12-26
+
+### Added
+
+- File existence checks in tags like `{import}` or `{include}`
+
 ## [1.3.0] - 2024-05-22
 
 ### Added

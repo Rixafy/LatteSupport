@@ -159,6 +159,11 @@
 						 displayName="Latte iterable types"
 						 groupName="Latte" enabledByDefault="true"
 						 implementationClass="org.nette.latte.inspections.LatteIterableTypeInspection"/>
+
+		<localInspection language="Latte" shortName="LatteMissingFile" id="LatteMissingFile"
+						 displayName="Missing files in macros like import/include"
+						 groupName="Latte" enabledByDefault="true"
+						 implementationClass="org.nette.latte.inspections.MissingFileInspection"/>
 	</extensions>
 
 	<application-components>
