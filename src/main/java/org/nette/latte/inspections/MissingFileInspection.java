@@ -45,14 +45,17 @@ public class MissingFileInspection extends BaseLocalInspectionTool {
 						String text = macroContent.getText().split(" ")[0].split(",")[0];
 						if (!text.contains("$") && text.contains(".")) {
 							String relativePath = text.replaceAll("[\"']", "").trim();
-							if (relativePath.startsWith("/")) {
-								relativePath = relativePath.substring(1);
-							}
 
-							String absolutePath = "file://" + element.getContainingFile().getContainingDirectory().getVirtualFile().getPath() + "/" + relativePath;
-							VirtualFile virtual = VirtualFileManager.getInstance().findFileByUrl(absolutePath);
-							if (virtual == null) {
-								problems.add(manager.createProblemDescriptor(element, "File " + (new File(absolutePath)).getName() + " is missing", new LocalQuickFix[]{new CreateMissingFile(element.getContainingFile().getVirtualFile(), absolutePath)}, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly, false));
+							if (!relativePath.matches(".*\\(.*\\).*")) {
+								if (relativePath.startsWith("/")) {
+									relativePath = relativePath.substring(1);
+								}
+
+								String absolutePath = "file://" + element.getContainingFile().getContainingDirectory().getVirtualFile().getPath() + "/" + relativePath;
+								VirtualFile virtual = VirtualFileManager.getInstance().findFileByUrl(absolutePath);
+								if (virtual == null) {
+									problems.add(manager.createProblemDescriptor(element, "File " + (new File(absolutePath)).getName() + " is missing", new LocalQuickFix[]{new CreateMissingFile(element.getContainingFile().getVirtualFile(), absolutePath)}, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, isOnTheFly, false));
+								}
 							}
 						}
 					}

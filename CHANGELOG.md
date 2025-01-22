@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.2] - 2025-01-22
+
+### Fixed
+
+- Disabled file existence checks in functions inside tags
+
 ## [1.3.1] - 2024-12-26
 
 ### Added
