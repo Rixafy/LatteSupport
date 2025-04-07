@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0] - 2025-04-07
+
+### Added
+
+- Support for typehints in iterables using generics
+
 ## [1.3.2] - 2025-01-22
 
 ### Fixed

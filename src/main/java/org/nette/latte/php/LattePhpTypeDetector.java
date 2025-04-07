@@ -16,11 +16,8 @@ import org.nette.latte.utils.LatteTypesUtil;
 import com.jetbrains.php.lang.psi.elements.Field;
 import com.jetbrains.php.lang.psi.elements.Method;
 import com.jetbrains.php.lang.psi.elements.PhpClass;
-import com.jetbrains.php.lang.psi.resolve.types.PhpType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.nette.latte.psi.*;
-import org.nette.latte.psi.elements.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -159,11 +156,17 @@ public class LattePhpTypeDetector {
                 return customFunction == null ? NettePhpType.MIXED : NettePhpType.create(customFunction.getFunctionReturnType());
             }
 
-            List<PhpType> types = new ArrayList<>();
+            List<String> types = new ArrayList<>();
             for (PhpClass phpClass : phpClasses) {
                 for (Method phpMethod : phpClass.getMethods()) {
                     if (phpMethod.getName().equals(name)) {
-                        types.add(phpMethod.getType());
+                        String foundType = phpMethod.getType().toString();
+                        for (String text : phpMethod.getType().getTypesWithParametrisedParts()) {
+                            if (text.contains("<")) {
+                                foundType = text;
+                            }
+                        }
+                        types.add(foundType);
                     }
                 }
             }
@@ -175,11 +178,17 @@ public class LattePhpTypeDetector {
             Collection<PhpClass> phpClasses = type.getPhpClasses(project);
             String name = property.getPropertyName();
 
-            List<PhpType> types = new ArrayList<>();
+            List<String> types = new ArrayList<>();
             for (PhpClass phpClass : phpClasses) {
                 for (Field field : phpClass.getFields()) {
                     if (!field.isConstant() && !field.getModifier().isStatic() && field.getModifier().isPublic() && field.getName().equals(name)) {
-                        types.add(field.getType());
+                        String foundType = field.getType().toString();
+                        for (String text : field.getType().getTypesWithParametrisedParts()) {
+                            if (text.contains("<")) {
+                                foundType = text;
+                            }
+                        }
+                        types.add(foundType);
                     }
                 }
             }
@@ -191,11 +200,17 @@ public class LattePhpTypeDetector {
             Collection<PhpClass> phpClasses = type.getPhpClasses(project);
             String name = property.getVariableName();
 
-            List<PhpType> types = new ArrayList<>();
+            List<String> types = new ArrayList<>();
             for (PhpClass phpClass : phpClasses) {
                 for (Field field : phpClass.getFields()) {
                     if (!field.isConstant() && field.getModifier().isStatic() && field.getModifier().isPublic() && field.getName().equals(name)) {
-                        types.add(field.getType());
+                        String foundType = field.getType().toString();
+                        for (String text : field.getType().getTypesWithParametrisedParts()) {
+                            if (text.contains("<")) {
+                                foundType = text;
+                            }
+                        }
+                        types.add(foundType);
                     }
                 }
             }
@@ -207,11 +222,17 @@ public class LattePhpTypeDetector {
             Collection<PhpClass> phpClasses = type.getPhpClasses(project);
             String name = constant.getConstantName();
 
-            List<PhpType> types = new ArrayList<>();
+            List<String> types = new ArrayList<>();
             for (PhpClass phpClass : phpClasses) {
                 for (Field field : phpClass.getFields()) {
                     if (field.isConstant() && field.getModifier().isPublic() && field.getName().equals(name)) {
-                        types.add(field.getType());
+                        String foundType = field.getType().toString();
+                        for (String text : field.getType().getTypesWithParametrisedParts()) {
+                            if (text.contains("<")) {
+                                foundType = text;
+                            }
+                        }
+                        types.add(foundType);
                     }
                 }
             }
@@ -257,7 +278,15 @@ public class LattePhpTypeDetector {
             for (PhpClass phpClass : classes) {
                 for (Field field : phpClass.getFields()) {
                     if (!field.isConstant() && field.getModifier().isPublic() && variableName.equals(field.getName())) {
-                        return NettePhpType.create(field.getName(), field.getType().toString(), LattePhpUtil.isNullable(field.getType()));
+                        String type = field.getType().toString();
+
+                        for (String text : field.getType().getTypesWithParametrisedParts()) {
+                            if (text.contains("<")) {
+                                type = text;
+                            }
+                        }
+
+                        return NettePhpType.create(field.getName(), type, LattePhpUtil.isNullable(field.getType()));
                     }
                 }
             }

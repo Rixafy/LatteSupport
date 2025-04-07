@@ -227,9 +227,16 @@ public class LattePhpUtil {
         if (normalized.contains("|null")) {
             normalized = normalized.replace("|null", "");
         }
+
         if (normalized.contains("|NULL")) {
             normalized = normalized.replace("|NULL", "");
         }
+
+        // Collection<Test> - we need only Collection
+        if (normalized.contains("<")) {
+            normalized = normalized.substring(0, normalized.indexOf("<"));
+        }
+
         return normalized;
     }
 }

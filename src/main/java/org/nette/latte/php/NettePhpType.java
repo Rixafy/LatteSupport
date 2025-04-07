@@ -72,13 +72,9 @@ public class NettePhpType {
         return create(null, String.join("|", phpType.getTypes()), LattePhpUtil.isNullable(phpType));
     }
 
-    public static @NotNull NettePhpType create(final @NotNull List<PhpType> phpTypes) {
-        List<String> typesStrings = new ArrayList<>();
-        for (PhpType type : phpTypes) {
-            typesStrings.add(type.toString());
-        }
+    public static @NotNull NettePhpType create(final @NotNull List<String> types) {
         Set<String> temp = new LinkedHashSet<>(
-                Arrays.asList(String.join("|", typesStrings).split("\\|"))
+                Arrays.asList(String.join("|", types).split("\\|"))
         );
         return create(null, String.join("|", temp));
     }
@@ -129,6 +125,17 @@ public class NettePhpType {
         if (typeString.startsWith("?")) {
             parts.add("null");
             typeString = typeString.substring(1);
+        }
+
+        // check for iterable types
+        for (String part : typeString.split("\\|")) {
+            String clean = part.trim();
+            if (clean.contains("<") && clean.endsWith(">")) {
+                String inner = clean.substring(clean.indexOf('<') + 1, clean.length() - 1);
+                String[] generics = inner.split(",", -1);
+                String type = generics.length == 2 ? generics[1].trim() : generics[0].trim();
+                parts.add(type + "[]");
+            }
         }
 
         parts.addAll(Arrays.asList(typeString.split("\\|")));
