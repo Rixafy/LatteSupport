@@ -33,10 +33,10 @@ jobs:
         uses: ChrisCarini/intellij-platform-plugin-verifier-action@v2.0.1
         with:
           ide-versions: |
-            ideaIU:2022.2
-            ideaIU:2023.1
-            ideaIU:2024.1
-            ideaIU:LATEST-EAP-SNAPSHOT
+            phpstorm:2022.2
+            phpstorm:2023.1
+            phpstorm:2024.1
+            phpstorm:LATEST-EAP-SNAPSHOT
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
