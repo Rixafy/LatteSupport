@@ -1,6 +1,7 @@
 package org.nette.latte.parser;
 
 import com.intellij.lang.PsiBuilder;
+import com.intellij.lang.parser.GeneratedParserUtilBase;
 import com.intellij.psi.tree.IElementType;
 import org.nette.latte.config.LatteConfiguration;
 import org.nette.latte.psi.LatteTypes;
